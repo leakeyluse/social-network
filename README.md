@@ -2,10 +2,21 @@
 Web server for a social network Using Typescript, Node.js, PostgreSQL
 
 # Usage
-npm install
+``` 
+git clone 
 
-# Description
-# Routes
+# Add db details
+ user: 'db_username',
+ password: 'db_password',
+ database: 'db_dbname',
+ host: 'db_host',
+  
+
+# Install dependencies
+npm install;
+```
+
+# Description: Routes
 ## a) Signup
 
 1. Should collect and store a user's full name, email, and password.

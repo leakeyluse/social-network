@@ -1,7 +1,9 @@
 import express from 'express';
 import cors from "cors";
 import {server} from "../config/config";
-import {pool} from "../db/db";
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import {pool, dbOps} from "../db/db";
 
 const app = express();
 
@@ -50,6 +52,8 @@ app.post("/login", async (req,res) => {
     }
 });
 
+//await bcrypt.hash(pass, 10);
+
 app.get("/getuser", async (req,res) => {
     try {
         if(isLoggedIn()) {
@@ -67,10 +71,11 @@ app.get("/getuser", async (req,res) => {
        console.error(err.message);
     }
 });
-
+/*
 app.listen(server.port, err => {
   if (err) {
     return console.error(err);
   }
   return console.log(`Server listening on port ${server.port}`);
 });
+*/

@@ -5,11 +5,12 @@ Web server for a social network Using Typescript, Node.js, PostgreSQL. No interf
 ``` 
 git clone 
 
-# Add db details
- user: 'db_username',
- password: 'db_password',
- database: 'db_dbname',
- host: 'db_host',
+# Add db details in ./db/.env
+pgUser=username   
+pgPassword=password
+pgDb=database
+pgHost=host
+pgPort=port
   
 
 # Install dependencies

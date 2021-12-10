@@ -1,5 +1,5 @@
 # Social Network
-Web server for a social network Using Typescript, Node.js, PostgreSQL
+Web server for a social network Using Typescript, Node.js, PostgreSQL. No interface, use with Postman, Insomnia or curl.
 
 # Usage
 ``` 

@@ -14,6 +14,9 @@ git clone
 
 # Install dependencies
 npm install;
+
+# Run
+npm start
 ```
 
 # Description: Routes

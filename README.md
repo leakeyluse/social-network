@@ -1,18 +1,17 @@
 # Social Network
-Web server for a social network Using Typescript, Node.js, PostgreSQL. No interface, use with Postman, Insomnia or curl.
+Web server for a social network Using Typescript, Node.js, PostgreSQL. Use with Postman, Insomnia or curl.
 
 # Usage
 ``` 
 git clone 
 
-# Add db details in ./db/.env
+# Add db connection details in .env
 pgUser=username   
 pgPassword=password
 pgDb=database
 pgHost=host
 pgPort=port
   
-
 # Install dependencies
 npm install;
 

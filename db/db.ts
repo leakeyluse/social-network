@@ -71,17 +71,26 @@ export const dbOps = {
             )
         AS "is_friend";
     `,
-    checkFriendRequestStatus: `
-        SELECT user_id, friend_id, accepted 
+    getFriends: `
+        SELECT users.first_name, users.last_name, users.email, user_friends.id 
         FROM "user_friends"
-        WHERE ("user_id"=$1 AND "friend_id"=$2)
-        OR ("user_id"=$2 AND "friend_id"=$1)
+        INNER JOIN "users"
+        ON (
+            (user_friends.user_id=$1 OR user_friends.friend_id=$1) AND
+            users.id=user_friends.user_id
+        )
         `,
     sendFriendRequest: `
         INSERT INTO "user_friends" (user_id, friend_id)
         VALUES ($1, $2)
         RETURNING *;
         `,
+    acceptFriendRequest: `
+        UPDATE "user_friends"
+        SET "accepted"=TRUE
+        WHERE user_id=$2
+        AND friend_id=$1
+        RETURNING *;`,
     resetLoginAttempts: `
         UPDATE "users"
         SET "login_attempts"=0

@@ -51,3 +51,30 @@ export const isBlocked = (loginToken:string) => {
         return null;
     }
 };
+
+export const isLoggedIn = (req) => {  
+    const token = req.body.token || req.query.token || req.headers["x-access-token"];
+    if (!token) {            
+        return {  
+            active: false,
+            data: null,
+            message:"token required"
+        }
+    }
+    const decoded = verifyToken(token);
+    if(!decoded) {
+        return {  
+            active: false,
+            data: null,
+            message:"invalid token"
+        }
+    }
+    try {
+        return {
+            active: true,
+            data: jwt.verify(token, jwtSecret) as JwtPayload
+        }
+    } catch (err) {
+        return null;
+    }
+};

@@ -1,0 +1,9 @@
+pgUser=kqacvkmvrmedzl  
+pgPassword=7ae899775129c7ce9a5e42af06eae5eefe04a064fe63b74e62dd84a06cd0f92e
+pgDb=da3u3s1sjqrmgn
+pgHost=ec2-35-168-80-116.compute-1.amazonaws.com
+pgPort=5432
+URI=postgres://kqacvkmvrmedzl:7ae899775129c7ce9a5e42af06eae5eefe04a064fe63b74e62dd84a06cd0f92e@ec2-35-168-80-116.compute-1.amazonaws.com:5432/da3u3s1sjqrmgn
+
+jwtSecret=l6yxW73H9ywwWpF22hEYB5LWrW-4OEd9sRwfoIzKn_Czt4s5V7KJfiCiZ71j_Shrbf7-PKUE-DOfa3Ae65cNng9QefPIHrWzFTBkxvEaH5FgYNPv7ZegFbpydTsbgSBtWhm-4lgJEqnbppD_FkVckAVBYGTuEnd4JrKxzbmub78
+jwtExpiresIn=1h

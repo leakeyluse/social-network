@@ -1,10 +1,22 @@
-CREATE DATABASE social_app;
+CREATE DATABASE social_netwrk;
 
-CREATE TABLE users(
-    user_id SERIAL PRIMARY KEY, 
-    first_name VARCHAR(255),
-    last_name VARCHAR(255),
-    email VARCHAR(255),
-    pass_hash VARCHAR(255),
-	created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+CREATE TABLE users (
+    id SERIAL,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    passhash VARCHAR(255) NOT NULL,
+    token VARCHAR(255) NOT NULL,
+    login_attempts INTEGER NOT NULL DEFAULT 0,
+    created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE user_friends (
+    id SERIAL,
+    user_id INTEGER NOT NULL,
+    friend_id INTEGER NOT NULL,
+    accepted BOOLEAN NOT NULL DEFAULT FALSE,
+    requested_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id)
 );

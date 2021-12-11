@@ -28,6 +28,7 @@ export const dbOps = {
             "email" VARCHAR(100) NOT NULL,
             "passhash" VARCHAR(255) NOT NULL,
             "token" VARCHAR(255) NOT NULL,
+            "blocked_login_token" VARCHAR(255) NOT NULL DEFAULT 0,
             "login_attempts" INTEGER NOT NULL DEFAULT 0,
             "created_at" timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY ("id")
@@ -88,13 +89,25 @@ export const dbOps = {
         RETURNING *;`,
     updateLoginAttempts: `
         UPDATE "users"
-        SET "login_attempts"=login_attempts + 1
+        SET "login_attempts"="login_attempts" + 1
         WHERE email=$1
         RETURNING *;
             `,
     setToken: `
         UPDATE "users"
         SET "token"=$2
+        WHERE email=$1
+        RETURNING *;
+            `,
+    unBlockUser: `
+        UPDATE "users"
+        SET "blocked_login_token"=0
+        WHERE email=$1
+        RETURNING *;
+            `,
+    blockUser: `
+        UPDATE "users"
+        SET "blocked_login_token"=$2
         WHERE email=$1
         RETURNING *;
             `

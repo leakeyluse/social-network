@@ -5,7 +5,9 @@ import jwt from 'jsonwebtoken';
 const {jwtSecret, jwtExpiresIn} = process.env;
 
 interface JwtPayload {
-    email: string
+    email: string,
+    exp: number,
+    iat: number
 }
 
 export const validatePassword = (password:string):boolean => {
@@ -42,11 +44,9 @@ export const verifyToken = (token:string) => {
     }
 };
 
-export const isBlocked = (token:string) => {
+export const isBlocked = (loginToken:string) => {    
     try {
-        if(jwt.verify(token, jwtSecret))
-            return true;
-        return false;
+        return jwt.verify(loginToken, jwtSecret) as JwtPayload;
     } catch (err) {
         return null;
     }

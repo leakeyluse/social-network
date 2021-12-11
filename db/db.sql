@@ -7,6 +7,7 @@ CREATE TABLE users (
     email VARCHAR(100) NOT NULL,
     passhash VARCHAR(255) NOT NULL,
     token VARCHAR(255) NOT NULL,
+    blocked_login_token VARCHAR(255) NOT NULL DEFAULT 0,
     login_attempts INTEGER NOT NULL DEFAULT 0,
     created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id)

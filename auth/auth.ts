@@ -4,10 +4,6 @@ config();
 import jwt from 'jsonwebtoken';
 const {jwtSecret, jwtExpiresIn} = process.env;
 
-export const isLoggedIn = () => {
-    return true;
-};
-
 export const validatePassword = (password) => {
     /*
      * password has at least:
@@ -33,3 +29,11 @@ export const createToken = (email) => {
         }
     )
 }
+
+export const verifyToken = (token) => {
+    try {
+      return jwt.verify(token);
+    } catch (err) {
+      return null;
+    }
+};

@@ -46,6 +46,11 @@ export const dbOps = {
         VALUES ($1, $2, $3, $4, $5)
         RETURNING *;
         `,
+    login: `
+        SELECT *
+        FROM "users"
+        WHERE "email"=$1;
+        `,
     userExists: `
         SELECT EXISTS
             (SELECT 1 FROM "users" where "email"=$1)
@@ -76,10 +81,21 @@ export const dbOps = {
         VALUES ($1, $2)
         RETURNING *;
         `,
-    acceptFriendRequest: `
-        UPDATE "user_friends"
-        SET "accepted"=TRUE
-        WHERE user_id=$2 AND friend_id=$1
+    resetLoginAttempts: `
+        UPDATE "users"
+        SET "login_attempts"=0
+        WHERE email=$1
+        RETURNING *;`,
+    updateLoginAttempts: `
+        UPDATE "users"
+        SET "login_attempts"="login_attempts + 1"
+        WHERE email=$1
         RETURNING *;
-        `
+            `,
+    setToken: `
+        UPDATE "users"
+        SET "token"=$2
+        WHERE email=$1
+        RETURNING *;
+            `
 }

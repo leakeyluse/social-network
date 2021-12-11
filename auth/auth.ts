@@ -21,7 +21,7 @@ export const validatePassword = (password) => {
 export const createToken = (email) => {
     return jwt.sign(
         {
-            id: email
+            email: email
         },
         jwtSecret,
         {
@@ -32,7 +32,7 @@ export const createToken = (email) => {
 
 export const verifyToken = (token) => {
     try {
-      return jwt.verify(token);
+      return jwt.verify(token, jwtSecret);
     } catch (err) {
       return null;
     }

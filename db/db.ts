@@ -57,7 +57,7 @@ export const dbOps = {
         AS "exists";
         `,
     getUserDetails: `
-        SELECT id, first_name, last_name, email
+        SELECT *
         FROM "users"
         WHERE "email"=$1;
         `,
@@ -88,7 +88,7 @@ export const dbOps = {
         RETURNING *;`,
     updateLoginAttempts: `
         UPDATE "users"
-        SET "login_attempts"="login_attempts + 1"
+        SET "login_attempts"=login_attempts + 1
         WHERE email=$1
         RETURNING *;
             `,

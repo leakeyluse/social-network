@@ -2,10 +2,11 @@
   "name": "social-app",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/app.js",
+  "main": "run/start.js",
   "scripts": {
-    "test": "jest",
-    "start": "tsc && node dist/src/app.js"
+    "test": "jest --coverage",
+    "start": "tsc && node dist/run/start.js",
+    "test:watch": "jest --watch"
   },
   "keywords": [],
   "author": "",
@@ -16,7 +17,10 @@
     "@types/express": "github:types/express",
     "@types/jest": "^27.0.3",
     "@types/jsonwebtoken": "^8.5.6",
+    "@types/supertest": "^2.0.11",
     "nodemon": "^2.0.15",
+    "supertest": "^6.1.6",
+    "ts-jest": "^27.1.1",
     "tslint": "^6.1.3",
     "typescript": "^4.5.3"
   },
@@ -28,6 +32,7 @@
     "jest": "^27.4.4",
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.7.1",
-    "pool": "^0.4.1"
+    "pool": "^0.4.1",
+    "sys": "^0.0.1"
   }
 }

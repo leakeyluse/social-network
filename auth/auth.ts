@@ -4,7 +4,11 @@ config();
 import jwt from 'jsonwebtoken';
 const {jwtSecret, jwtExpiresIn} = process.env;
 
-export const validatePassword = (password) => {
+interface JwtPayload {
+    email: string
+}
+
+export const validatePassword = (password:string):boolean => {
     /*
      * password has at least:
            (?=.*[A-Z])       1 uppercase letter
@@ -18,7 +22,7 @@ export const validatePassword = (password) => {
     return re.test(password);
 };
 
-export const createToken = (email) => {
+export const createToken = (email:string) => {
     return jwt.sign(
         {
             email: email
@@ -30,10 +34,20 @@ export const createToken = (email) => {
     )
 }
 
-export const verifyToken = (token) => {
+export const verifyToken = (token:string) => {
     try {
-      return jwt.verify(token, jwtSecret);
+        return jwt.verify(token, jwtSecret) as JwtPayload;
     } catch (err) {
-      return null;
+        return null;
+    }
+};
+
+export const isBlocked = (token:string) => {
+    try {
+        if(jwt.verify(token, jwtSecret))
+            return true;
+        return false;
+    } catch (err) {
+        return null;
     }
 };

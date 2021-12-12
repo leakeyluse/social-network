@@ -1,7 +1,7 @@
 # Social Network
 Web server for a social network Using Typescript, Node.js, PostgreSQL. Use with Postman, Insomnia or curl.
 
-# Usage
+# Installation 
 ``` 
 git clone 
 
@@ -11,12 +11,76 @@ pgPassword=password
 pgDb=database
 pgHost=host
 pgPort=port
+
+# Add JWT config in .env
+jwtSecret=jwtsecretkey   
+jwtExpiresIn=jwtvalidityperiod
+
+change server port in ./config/config.ts if necessary
   
 # Install dependencies
 npm install;
+```
 
-# Run
+# Testing
+```
+# Run all tests
+npm test
+```
+# Usage with cURL
+```
+# start
 npm start
+
+server running on localhost:3000
+
+# signup
+curl \
+--header "Content-Type: application/json" \
+--request POST \
+--data \
+  '{"firstName":"John","lastName":"doe","email":"john@doe.com","password":"#Hyour1_7password"}' \
+http://localhost:3000/signup
+
+# login
+curl \
+--header "Content-Type: application/json" \
+--request POST \
+--data \
+  '{"email":"john@doe.com","password":"#Hyour1_7password"}' \
+http://localhost:3000/login
+
+# get user (must be logged in, send your token with the request)
+curl \
+--header "Content-Type: application/json" \
+--request POST \
+--data \
+  '{"token":"john's_token"}' \
+http://localhost:3000/getuser
+
+# send friend request (must be logged in, send your token with the request)
+curl \
+--header "Content-Type: application/json" \
+--request POST \
+--data \
+  '{"email":"(Jane's Email) jane@doe.com","token":"john's_token"}' \
+http://localhost:3000/sendrequest
+
+# accept request (must be logged in, send your token with the request)
+curl \
+--header "Content-Type: application/json" \
+--request POST \
+--data \
+  '{"email":"(John's email) john@doe.com","token":"jane's_token"}' \
+http://localhost:3000/acceptrequest
+
+# see friends (must be logged in, send your token with the request)
+curl \
+--header "Content-Type: application/json" \
+--request POST \
+--data \
+  '{"token":"john's_token/jane's_token"}' \
+http://localhost:3000/seefriends
 ```
 
 # Description: Routes

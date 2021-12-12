@@ -28,7 +28,7 @@ npm install
 npm test
 ```
 # Usage with cURL
-```
+```sh
 # start
 npm start
 

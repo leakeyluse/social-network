@@ -19,7 +19,7 @@ jwtExpiresIn=jwtvalidityperiod
 change server port in ./config/config.ts if necessary
   
 # Install dependencies
-npm install;
+npm install
 ```
 
 # Testing

@@ -23,12 +23,12 @@ npm install
 ```
 
 # Testing
-```
+```console
 # Run all tests
 npm test
 ```
 # Usage with cURL
-```sh
+```console
 # start
 npm start
 

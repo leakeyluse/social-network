@@ -2,7 +2,7 @@
 Web server for a social network Using Typescript, Node.js, PostgreSQL. Use with Postman, Insomnia or curl.
 
 # Installation 
-``` 
+```console
 git clone 
 
 # Add db connection details in .env

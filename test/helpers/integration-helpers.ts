@@ -1,5 +1,3 @@
-import * as express from 'express';
-
 // global, test users
 var inDB = {
     firstName: "John",
@@ -18,6 +16,6 @@ var notInDB = {
 }
 
 export const dummyUsers = {
-    inDb: inDB,
-    notInDb: notInDB
+    inDB,
+    notInDB
 }

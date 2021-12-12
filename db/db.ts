@@ -102,6 +102,12 @@ export const dbOps = {
         WHERE email=$1
         RETURNING *;
             `,
+    updateEmail: `
+        UPDATE "users"
+        SET "email"=$2
+        WHERE email=$1
+        RETURNING *;
+            `,
     setToken: `
         UPDATE "users"
         SET "token"=$2
@@ -119,5 +125,10 @@ export const dbOps = {
         SET "blocked_login_token"=$2
         WHERE email=$1
         RETURNING *;
-            `
+            `,
+    deleteUser: `
+        DELETE FROM "users"
+        WHERE email=$1
+        RETURNING *;
+        `
 }

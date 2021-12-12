@@ -39,7 +39,7 @@ curl \
 --header "Content-Type: application/json" \
 --request POST \
 --data \
-  '{"firstName":"John","lastName":"doe","email":"john@doe.com","password":"#Hyour1_7password"}' \
+  '{"firstName":"John","lastName":"Doe","email":"john@doe.com","password":"#Hyour1_7password"}' \
 http://localhost:3000/signup
 
 # login

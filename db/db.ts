@@ -130,5 +130,19 @@ export const dbOps = {
         DELETE FROM "users"
         WHERE email=$1
         RETURNING *;
+        `,
+    getUserById: `
+        SELECT id, first_name, last_name, email
+        FROM "users"
+        WHERE "id"=$1;
+        `,
+    getAcceptedFriendsById: `
+        SELECT u.id, u.first_name, u.last_name, u.email
+        FROM "user_friends" uf
+        JOIN "users" u ON (CASE
+                            WHEN uf.user_id = $1 THEN uf.friend_id = u.id
+                            WHEN uf.friend_id = $1 THEN uf.user_id = u.id
+                          END)
+        WHERE (uf.user_id = $1 OR uf.friend_id = $1) AND uf.accepted = TRUE;
         `
 }

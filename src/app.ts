@@ -224,4 +224,81 @@ app.post("/acceptrequest", async (req,res) => {
     return res.status(200).json(acceptRequest.rows[0]);
 });
 
+app.post("/suggest", async (req, res) => {
+    try {
+        // Authentication check
+        const userMakingRequest = isLoggedIn(req);
+        if (!userMakingRequest.active) {
+            return res.status(401).json(userMakingRequest);
+        }
+
+        const { email } = req.body; // Email of the user for whom to get suggestions
+
+        if (!email) {
+            return res.status(400).json({
+                success: false,
+                error: true,
+                message: "User email is required in the request body."
+            });
+        }
+
+        // 1. Get User A's details (especially ID)
+        const userAResponse = await client.query(dbOps.getUserDetails, [email]);
+        if (userAResponse.rows.length === 0) {
+            return res.status(404).json({
+                success: false,
+                error: true,
+                message: `User with email ${email} not found.`
+            });
+        }
+        const userA = userAResponse.rows[0];
+        const userAId = userA.id;
+
+        // 2. Get User A's accepted friends
+        const friendsOfAResponse = await client.query(dbOps.getAcceptedFriendsById, [userAId]);
+        const friendsOfA = friendsOfAResponse.rows; // These are user objects
+        const friendsOfAIds = new Set(friendsOfA.map(f => f.id));
+
+        // 3. Get friends of friends
+        const suggestedUsersMap = new Map(); // To store unique user objects {id, first_name, last_name, email}
+
+        for (const friend of friendsOfA) {
+            const friendsOfFriendResponse = await client.query(dbOps.getAcceptedFriendsById, [friend.id]);
+            const friendsOfFriendList = friendsOfFriendResponse.rows;
+            for (const fof of friendsOfFriendList) {
+                // Add to map if not User A and not already a direct friend of User A
+                if (fof.id !== userAId && !friendsOfAIds.has(fof.id)) {
+                    if (!suggestedUsersMap.has(fof.id)) {
+                         // Store essential details, not the whole db object if it contains sensitive info
+                        suggestedUsersMap.set(fof.id, {
+                            id: fof.id,
+                            first_name: fof.first_name,
+                            last_name: fof.last_name,
+                            email: fof.email
+                        });
+                    }
+                }
+            }
+        }
+
+        const finalSuggestions = Array.from(suggestedUsersMap.values());
+
+        return res.status(200).json({
+            success: true,
+            suggestions: finalSuggestions
+        });
+
+    } catch (err) {
+        console.error("Error in /suggest endpoint:", err.message);
+        // Check if err has a stack property before trying to access it
+        const errorMessage = err.stack ? err.stack : err.message;
+        return res.status(500).json({
+            success: false,
+            error: true,
+            message: "Internal server error.",
+            details: errorMessage // Optionally include more detail for debugging
+        });
+    }
+});
+
 export default app;
